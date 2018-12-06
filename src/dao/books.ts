@@ -1,5 +1,6 @@
 import BaseDao from '../db/baseDao'
 import * as cheer from 'cheerio'
+import * as moment from 'moment'
 
 const protocol = 'http://localhost:5000'
 
@@ -27,7 +28,7 @@ export default class Books extends BaseDao {
                     let feature = $('#feature .descrip img').attr('src') || $('#feature').text()
                     if (feature && feature.startsWith('http')) {
                         let fileName = feature.substr(feature.lastIndexOf('/') + 1)
-                        let path = `/bookimages/${isbn}_${new Date()['Format']('yyyyMMdd')}_${G.tools.uuid()}_${fileName}`
+                        let path = `/bookimages/${isbn}_${moment().format('YYYYMMDD')}_${G.tools.uuid()}_${fileName}`
                         G.tools.spiderDown(feature, `./public${path}`)
                         feature = protocol + path
                     }
@@ -36,7 +37,7 @@ export default class Books extends BaseDao {
                     let abstract = ab_text && ab_text.length > 9 ? ab_text : ab_pic
                     if (abstract && abstract.startsWith('http')) {
                         let fileName = abstract.substr(abstract.lastIndexOf('/') + 1)
-                        let path = `/bookimages/${isbn}_${new Date()['Format']('yyyyMMdd')}_${G.tools.uuid()}_${fileName}`
+                        let path = `/bookimages/${isbn}_${moment().format('YYYYMMDD')}_${G.tools.uuid()}_${fileName}`
                         G.tools.spiderDown(abstract, `./public${path}`)
                         abstract = protocol + path
                     }
