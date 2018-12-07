@@ -5,9 +5,11 @@ import CONFIGS from '../config/configs'
 import STCODES from './enums'
 import { configure, getLogger} from 'log4js'
 import logCfg from '../config/log4js'
+import CircleQueue from '../common/circleQueue'
 
 const env = process.env.NODE_ENV || 'dev'            //dev - 开发; prod - 生产； test - 测试;
 let GlobVar = {
+    CircleQueue: new CircleQueue(3),
     PAGESIZE: 10,
     STCODES,
     ROOT_PATH: `${process.cwd()}${env === 'dev' ? '' : '/dist'}`,
